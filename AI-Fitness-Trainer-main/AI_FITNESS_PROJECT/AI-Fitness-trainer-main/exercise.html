@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercise Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('assets/images/1520222166305.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #header {
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  align-items: center;
+  padding: 20px 30px; /* Add spacing from top and right */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+        }
+
+    #menuToggle {
+      font-size: 17px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #0a0b0b;
+      height: 100%;
+      width: 250px;
+      padding: 30px 20px;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    #menu.show {
+      transform: translateX(0%);
+    }
+
+    #closeMenu {
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    #menu ul.links {
+      list-style: none;
+    }
+
+    #menu ul.links li {
+      margin: 30px 0;
+    }
+
+    #menu ul.links li a {
+      color: #80deea;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.2s ease;
+    }
+
+    #menu ul.links li a:hover {
+      color: #ffffff;
+    }
+
+        .container {
+            background-color: rgb(255, 255, 255);
+            opacity: 0.95;
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2a4365;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #334e68;
+            font-weight: 600;
+        }
+
+        select, button {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e0;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #2b6cb0;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2c5282;
+        }
+        
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div id="menuToggle">☰ Menu</div>
+      </header>
+    
+      <nav id="menu" class="hidden">
+        <div id="closeMenu">✖</div>
+        <ul class="links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/workout">Full Body Workout</a></li>
+          <li><a href="/workout1">Workout</a></li>
+          <li><a href="/fit">AI FitBot</a></li>
+        </ul>
+      </nav>
+    <div class="container">
+        <h1>Exercise Tracker</h1>
+        <form method="POST" action="/start-exercise">
+            <label for="exercise">Select an Exercise:</label>
+            <select name="exercise" id="exercise">
+                <option value="push-up">Push-up</option>
+                <option value="pull-up">Pull-up</option>
+                <option value="squat">Squat</option>
+                <option value="walk">Walk</option>
+                <option value="sit-up">Sit-up</option>
+                <option value="jumping-jacks">Jumping Jacks</option>
+                <option value="lunges">Lunges</option>
+                <option value="leg-raises">Leg Raises</option>
+                <option value="burpees">Burpees</option>
+            </select>
+            <button type="submit">Start Exercise</button>
+        </form>
+    </div>
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+    const closeMenu = document.getElementById("closeMenu");
+
+    menuToggle.addEventListener("click", () => {
+      menu.classList.add("show");
+    });
+
+    closeMenu.addEventListener("click", () => {
+      menu.classList.remove("show");
+    });
+    </script>
+</body>
+</html>

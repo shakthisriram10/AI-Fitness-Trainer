@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  
+  <title>Workout Cards</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #9aeadb;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    #header {
+  display: flex;
+  justify-content: flex-end; /* Align content to the right */
+  align-items: center;
+  padding: 20px 30px; /* Add spacing from top and right */
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+        }
+
+    #menuToggle {
+      font-size: 17px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #0a0b0b;
+      height: 100%;
+      width: 250px;
+      padding: 30px 20px;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    #menu.show {
+      transform: translateX(0%);
+    }
+
+    #closeMenu {
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    #menu ul.links {
+      list-style: none;
+    }
+
+    #menu ul.links li {
+      margin: 30px 0;
+    }
+
+    #menu ul.links li a {
+      color: #80deea;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.2s ease;
+    }
+
+    #menu ul.links li a:hover {
+      color: #ffffff;
+    }
+    h1 {
+      text-align: center;
+      font-size: 2.8em;
+      color: #222;
+      margin-bottom: 40px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .container {
+      position: relative;
+      width: 400px;
+      height: 300px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.25);
+      color: white;
+      text-shadow: 1px 1px 2px black;
+      transition: transform 0.3s ease;
+    }
+
+    .container:hover {
+      transform: scale(1.05);
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.5);
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      padding: 25px;
+      height: 80%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .content h2 {
+      font-size: 1.8em;
+      margin: 0 0 10px;
+    }
+
+    .content p {
+      font-size: 1.05em;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    
+    .exercise-form button {
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      border-radius: 6px;
+      background-color: #ff6600;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin: 0 auto;
+    }
+
+    .exercise-form button:hover {
+      background-color: #e65c00;
+    }
+
+    /* Background images */
+    .pull-up::before         { background-image: url('assets/images/pull-up.jpg'); }
+    .push-up::before         { background-image: url('assets/images/push-up.jpg'); }
+    .sit-up::before          { background-image: url('assets/images/sit-up.jpg'); }
+    .walk::before            { background-image: url('assets/images/walk.jpg'); }
+    .squat::before           { background-image: url('assets/images/squat.jpg'); }
+    .jumping-jacks::before   { background-image: url('assets/images/jumping-jacks.jpg'); }
+    .lunges::before          { background-image: url('assets/images/lunges.jpg'); }
+    .leg-raises::before      { background-image: url('assets/images/leg-raises.jpg'); }
+    .burpees::before         { background-image: url('assets/images/burpees.jpg'); }
+
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div id="menuToggle">☰ Menu</div>
+  </header>
+
+  <nav id="menu" class="hidden">
+    <div id="closeMenu">✖</div>
+    <ul class="links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/workout">Full Body Workout</a></li>
+      <li><a href="/workout1">Workout</a></li>
+      <li><a href="/fit">AI FitBot</a></li>
+    </ul>
+  </nav>
+  <h1>Best Fitness Exercises</h1>
+  <div class="grid">
+
+    <div class="container pull-up">
+      <div class="content">
+        <h2>Pull-Up</h2>
+        <p>Builds upper body strength by targeting back, shoulders, arms, and grip.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="pull-up" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container push-up">
+      <div class="content">
+        <h2>Push-Up</h2>
+        <p>Strengthens the chest, shoulders, triceps, and core using just body weight.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="push-up" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container sit-up">
+      <div class="content">
+        <h2>Sit-Up</h2>
+        <p>Targets abdominal muscles and enhances overall core strength and posture.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="sit-up" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container walk">
+      <div class="content">
+        <h2>Walking</h2>
+        <p>A simple yet powerful cardiovascular activity that boosts heart and mood.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="walk" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container squat">
+      <div class="content">
+        <h2>Squat</h2>
+        <p>Engages thighs, glutes, and core, enhancing balance and lower body power.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="squat" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container jumping-jacks">
+      <div class="content">
+        <h2>Jumping Jacks</h2>
+        <p>Great for warming up and increasing endurance through full-body motion.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="jumping jacks" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container lunges">
+      <div class="content">
+        <h2>Lunges</h2>
+        <p>Improves coordination and leg strength by targeting glutes and hamstrings.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="lunges" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container leg-raises">
+      <div class="content">
+        <h2>Leg Raises</h2>
+        <p>Strengthens lower abdominal muscles and enhances core stability and form.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="leg raises" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+    <div class="container burpees">
+      <div class="content">
+        <h2>Burpees</h2>
+        <p>Combines squats, push-ups, and jumps for an intense full-body workout.</p>
+        <form action="/start-exercise1" method="post" class="exercise-form">
+            <input type="hidden" name="exercise" value="burpees" />
+            <button type="submit">Start</button>
+          </form>
+      </div>
+    </div>
+
+  </div>
+  <script>const menuToggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+    const closeMenu = document.getElementById("closeMenu");
+
+    menuToggle.addEventListener("click", () => {
+      menu.classList.add("show");
+    });
+
+    closeMenu.addEventListener("click", () => {
+      menu.classList.remove("show");
+    });</script>
+</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Fitness Chatbot</title>
+  <script src="https://js.puter.com/v2/"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #121212, #1e1e1e);
+      min-height: 100vh;
+      padding: 15px 20px;
+      color: #e0f7fa;
+    }
+
+    #header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #ffffff;
+      padding: 10px 0;
+    }
+
+    #menuToggle {
+      font-size: 17px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #menu {
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: #0a0b0b;
+      height: 100%;
+      width: 250px;
+      padding: 30px 20px;
+      box-shadow: -4px 0 10px rgba(0,0,0,0.6);
+      transform: translateX(100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+
+    #menu.show {
+      transform: translateX(0%);
+    }
+
+    #closeMenu {
+      font-size: 24px;
+      color: #fff;
+      cursor: pointer;
+      text-align: right;
+      margin-bottom: 30px;
+    }
+
+    #menu ul.links {
+      list-style: none;
+    }
+
+    #menu ul.links li {
+      margin: 30px 0;
+    }
+
+    #menu ul.links li a {
+      color: #80deea;
+      text-decoration: none;
+      font-size: 18px;
+      transition: color 0.2s ease;
+    }
+
+    #menu ul.links li a:hover {
+      color: #ffffff;
+    }
+
+    .header {
+      background-color: #00acc1;
+      color: #ffffff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header h2 {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 16px;
+      color: #b2dfdb;
+    }
+
+    #chatbox {
+      background-color: #263238;
+      padding: 20px;
+      border-radius: 10px;
+      min-height: 200px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      font-size: 16px;
+      color: #e0f7fa;
+      white-space: pre-wrap;
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #37474f;
+      color: #e0f7fa;
+      border: 1px solid #546e7a;
+      border-radius: 6px;
+      width: 100%;
+      margin-top: 20px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #00acc1;
+      outline: none;
+    }
+
+    button {
+      padding: 12px;
+      font-size: 16px;
+      background-color: #00acc1;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00838f;
+    }
+  </style>
+</head>
+<body>
+  <header id="header">
+    <div class="logo"><a href="/workout1" style="color:#fff; text-decoration:none;">🏋️‍♂️ Workout</a></div>
+    <div id="menuToggle">☰ Menu</div>
+  </header>
+
+  <nav id="menu" class="hidden">
+    <div id="closeMenu">✖</div>
+    <ul class="links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/workout">Full Body Workout</a></li>
+      <li><a href="/workout1">Workout</a></li>
+      <li><a href="/fit">AI FitBot</a></li>
+    </ul>
+  </nav>
+
+  <div class="header">
+    <h2>💪 AI Fitness Bot</h2>
+    <p>Ask me anything about workouts, plans, or nutrition</p>
+  </div>
+
+  <input type="text" id="userInput" placeholder="e.g. Suggest a workout plan for a beginner...">
+  <button onclick="sendToBot()">Ask AI</button>
+
+  <div id="chatbox"></div>
+
+  <script type="module">
+    import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+    // Initialize Gemini with API Key
+    const genAI = new GoogleGenerativeAI("AIzaSyBnzON3dMfq6nZj4frMfVuI3famI5Xw0WE");  // replace with your Gemini API key
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    // Chat function
+    window.sendToBot = async function () {
+      const input = document.getElementById("userInput").value;
+      const chatbox = document.getElementById("chatbox");
+
+      if (!input.trim()) {
+        chatbox.innerHTML = "❗ Please enter a question.";
+        return;
+      }
+
+      chatbox.innerHTML = "🤖 Thinking...";
+
+      try {
+        const prompt = `
+            You are a helpful AI Fitness Trainer bot. 
+            Give clear, science-based, and motivational advice about workouts, diet, posture correction, 
+            and healthy lifestyle tips. 
+            Be concise, beginner-friendly, and structured.
+            if the topic is deviated say I am a Fitness bot and ask about fitness questions.
+            User question: ${input}
+          `;
+        const result = await model.generateContent(prompt);
+        const response = result.response.text();
+
+        chatbox.innerHTML = `
+          <strong>You:</strong> ${input}<br><br>
+          <strong>Bot:</strong> ${response}
+        `;
+      } catch (err) {
+        chatbox.innerHTML = "⚠️ Error: " + err.message;
+      }
+    };
+
+    // Menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const menu = document.getElementById("menu");
+    const closeMenu = document.getElementById("closeMenu");
+
+    menuToggle.addEventListener("click", () => { menu.classList.add("show"); });
+    closeMenu.addEventListener("click", () => { menu.classList.remove("show"); });
+  </script>
+</body>
+</html>
